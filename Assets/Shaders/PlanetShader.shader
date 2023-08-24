@@ -71,7 +71,7 @@ Shader "Custom/PlanetShader"
         void surf (Input IN, inout SurfaceOutput o)
         {
             // Albedo comes from a texture tinted by color
-            fixed4 color = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+            fixed4 color = tex2D (_MainTex, IN.uv_MainTex) ;
 
             float height = IN.color.r;
             if (height < 0.45)
@@ -92,7 +92,9 @@ Shader "Custom/PlanetShader"
             color.y = 0.30;
             color.z = 0.30;
             }
-            o.Albedo = color.rgb;
+            fixed4 Finalcolor = color * _Color;
+
+            o.Albedo = Finalcolor.rgb ;
             o.Emission = _Emission.xyz;
             o.Alpha = color.a;
         }
